@@ -1,13 +1,13 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
+// import * as dat from 'lil-gui'
 
 /**
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -169,16 +169,16 @@ scene.add(floor)
  */
 // Ambient light
 const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.12)
-gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
+// gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
 scene.add(ambientLight)
 
 // Directional light
 const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.12)
 moonLight.position.set(4, 5, -2)
-gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
-gui.add(moonLight.position, 'x').min(-5).max(5).step(0.001)
-gui.add(moonLight.position, 'y').min(-5).max(5).step(0.001)
-gui.add(moonLight.position, 'z').min(-5).max(5).step(0.001)
+// gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
+// gui.add(moonLight.position, 'x').min(-10).max(10).step(0.001)
+// gui.add(moonLight.position, 'y').min(-5).max(5).step(0.001)
+// gui.add(moonLight.position, 'z').min(-10).max(10).step(0.001)
 scene.add(moonLight)
 
 // DOOR LIGHT
@@ -188,12 +188,15 @@ house.add(doorLight)
 
 // GHOSTS
 const ghost1 = new THREE.PointLight('#ff00ff', 2, 3)
+ghost1.intensity = 0.2
 scene.add(ghost1)
 
 const ghost2 = new THREE.PointLight('#0000ff', 2, 3)
+ghost2.intensity = 0.5
 scene.add(ghost2)
 
 const ghost3 = new THREE.PointLight('#00ffff', 2, 3)
+ghost3.intensity = 0.5
 scene.add(ghost3)
 
 /**
@@ -224,8 +227,8 @@ window.addEventListener('resize', () => {
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 4
-camera.position.y = 2
-camera.position.z = 5
+camera.position.y = 4
+camera.position.z = 7
 scene.add(camera)
 
 // Controls
@@ -283,6 +286,16 @@ const clock = new THREE.Clock()
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime()
+
+  //Moonlight Move
+  // const cameraAngle = elapsedTime * 0.25
+  // camera.position.x = Math.sin(cameraAngle) * 10
+  // camera.position.z = Math.cos(cameraAngle) * 10
+
+  //Moonlight Move
+  const moonAngle = elapsedTime * 0.1
+  moonLight.position.x = Math.sin(moonAngle) * 10
+  moonLight.position.z = Math.cos(moonAngle) * 10
 
   // GHOST ANIMATION
   const ghost1Angle = elapsedTime * 0.5

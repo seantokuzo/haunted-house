@@ -3,3 +3,5 @@
 /static
 /bundler
 .prettierrc
+# Local Netlify folder
+.netlify
